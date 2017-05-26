@@ -27,5 +27,5 @@ script:
   - conda build devtools/conda-recipe
   # Run tests
   - conda install --yes nose nose-timer
-  - cd devtools && nosetests -vv --nocapture --with-timer $PACKAGENAME && cd ..
+  - cd devtools && nosetests -vv --nocapture --with-timer MiniDrugBank && cd ..
 
