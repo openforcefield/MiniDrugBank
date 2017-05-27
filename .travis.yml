@@ -1,11 +1,6 @@
 language: c
 sudo: false
 
-python:
-    - "2.7"
-    - "3.4"
-    - "3.5"
-
 branches:
   only:
     - master
@@ -25,3 +20,8 @@ script:
   - conda install --yes nose nose-timer
   - cd devtools && nosetests -vv --nocapture --with-timer MiniDrugBank && cd ..
 
+env:
+  matrix:
+    - python=2.7 CONDA_PY=27
+    - python=3.4 CONDA_PY=34
+    - python=3.5 CONDA_PY=35
