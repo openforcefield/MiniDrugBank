@@ -15,16 +15,12 @@ install:
   - export PYTHONUNBUFFERED=true
 
 script:
-  # Add omnia channel
-  - conda config --add channels ${ORGNAME}
   # Create and activate test environment
   - conda create --yes -n test python=$python
   - source activate test
   # Install openforcefield tools
   # TODO if changes to openforcefield become less dynamic switch to conda install?
   - pip install git+https://github.com/open-forcefield-group/openforcefield.git
-  # Build the recipe
-  - conda build devtools/conda-recipe
   # Run tests
   - conda install --yes nose nose-timer
   - cd devtools && nosetests -vv --nocapture --with-timer MiniDrugBank && cd ..
