@@ -19,11 +19,6 @@ requirements:
   run:
     - python
 
-test:
-  requires:
-    - nose
-    - nose-timer
-
 about:
   home: https://github.com/open-forcefield-group/minidrugbank
   license: MIT
