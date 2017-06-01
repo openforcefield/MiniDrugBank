@@ -2,7 +2,7 @@ import openforcefield
 from unittest import TestCase
 
 class TestMiniDrugBank(TestCase):
-    def test_repeating_molecules():
+    def test_repeating_molecules(self):
         """
         Test methods used to create minidrugbank
         """
@@ -10,7 +10,7 @@ class TestMiniDrugBank(TestCase):
         print("Checking for repeating molecules")
         return
 
-    def test_3Dcoordinates():
+    def test_3Dcoordinates(self):
         """
         Check 3D coordinates
         """
