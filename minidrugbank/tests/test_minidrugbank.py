@@ -1,4 +1,5 @@
 from unittest import TestCase
+from pkg_resources import resource_filename
 from openforcefield.utils import read_molecules
 from openforcefield.typing.engines.smirnoff.forcefield import ForceField
 from openeye import oechem
@@ -9,8 +10,11 @@ class TestMiniDrugBank(TestCase):
         initiate and store molecules
         """
         TestCase.__init__(self, *args, **kwargs)
-        self.tripos_mols = read_molecules('../MiniDrugBank_tripos.mol2')
-        self.ff_mols = read_molecules('../MiniDrugBank_ff.mol2')
+        tri_file = resource_filename('minidrugbank', 'MiniDrugBank_tripos.mol2')
+        ff_file = resource_filename('minidrugbank', 'MiniDrugBank_ff.mol2')
+        self.tripos_mols = read_molecules(tri_file)
+        self.ff_mols = read_molecules(ff_file)
+
     def test_repeating_molecules(self):
         """
         Test methods used to create minidrugbank
@@ -76,9 +80,15 @@ class TestMiniDrugBank(TestCase):
         for force, [count, s] in pids.items():
             self.assertTrue( len(s) == count, msg = "Current set has %i types for the force %s, there were %i in the original set" % (len(s), force, count))
 
+    def test_3Dcoordinates(self):
+        """
+        Check for three dimensional coordinates for every molecule
+        """
+        for idx, ff_mol in self.ff_mols:
+            tri_mol = self.tripos_mols[idx]
+            self.assertTrue(ff_mol.GetDimension()==3, msg="Molecule %s in parm@frosst set doesn't have 3D coordinates" % ff_mol.GetTitle())
+            self.assertTrue(tri_mol.GetDimension()==3, msg="Molecule %s in tripos set doesn't have 3D coordinates" % tri_mol.GetTitle())
 
-    #TODO
-    #def test_3Dcoordinates(self):
 
     def test_check_hydrogens(self):
         """
