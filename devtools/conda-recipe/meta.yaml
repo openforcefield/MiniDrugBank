@@ -23,6 +23,8 @@ test:
   requires:
     - nose
     - nose-timer
+  imports:
+    - minidrugbank
 
 about:
   home: https://github.com/open-forcefield-group/minidrugbank
