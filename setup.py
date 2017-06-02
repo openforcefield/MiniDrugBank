@@ -17,8 +17,8 @@ This provides the molecule set MiniDrugBank and the jupyter notebook used to cre
 
 setup(
     name                 = 'minidrugbank',
-    version              = '1.0.0',
-    description          = 'MiniDrugBank',
+    version              = '0.0.0',
+    description          = 'MiniDrugBank molecule set',
     long_description     = descr,
     url                  = 'https://github.com/open-forcefield-group/MiniDrugBank',
     author               = 'Caitlin C. Bannan, David L. Mobley',
