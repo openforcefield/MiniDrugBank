@@ -30,7 +30,8 @@ script:
   # Install
   - conda install --yes --use-local minidrugbank 
   # Run tests
-  - conda install --yes nose nose-timer
+  - conda install --yes nose 
+  - pip install nose-timer
   - cd devtools && nosetests -vv --nocapture --with-timer $PACKAGENAME && cd ..
 
 env:
