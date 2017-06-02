@@ -4,7 +4,7 @@ Setup script to install the MiniDrugBank molecule set as a python package
 
 import sys,os
 from os.path import relpath, join
-from setuptools import setup, find_packages
+from setuptools import setup
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -34,7 +34,7 @@ setup(
     author_email         = 'dmobley@uci.edu',
     license              = 'MIT',
     platforms            = ['Linux-64', 'Mac OSX-64', 'Unix-64'],
-    packages             = ['minidrugbank', 'minidrugbank/tests/'],
+    packages             = ['minidrugbank/tests/'],
     package_data = {'minidrugbank': find_package_data('minidrugbank/', 'minidrugbank')},
     include_package_data = True
 )
