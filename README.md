@@ -2,15 +2,24 @@
 
 This repository is used to distribute the MiniDrugBank molecule set, filtered from [DrugBank Release Version 5.0.1](http://www.drugbank.ca/releases/latest)
 
-### Filtering DrugBank
+## Installation 
 
-This molecule set was created for the purpose of [smarty and smirky]() tools for sampling chemical perception. The goal was to maintain the chemical complexity in the DrugBank database with as few molecules as possible. First we removed molecules based on the following criteria:
+Install `MiniDrugBank` via conda:
+```bash
+conda install -c mobleylab minidrugbank=0.0.0
+```
+
+If you wish to use the Jupyter notebook `MiniDrugBank/pickMolecules.ipynb` you will also need `openforcefield` tools available on github at [open-forcefield-group/openforcefield](https://github.com/open-forcefield-group/openforcefield)
+
+## Building MiniDrugBank
+
+This molecule set was created for the purpose of [smarty and smirky](https://github.com/open-forcefield-group/smarty) tools for sampling chemical perception. The goal was to maintain the chemical complexity in the DrugBank database with as few molecules as possible. First we removed molecules based on the following criteria:
 
 * contained metal or metaloid atoms
 * had less than 3 or more than 100 heavy atoms
 * could not be assigned parm@frosst atom types
     - Note this doesn't mean all molecules can be assigned parm@frosst force field parameters as it is possible that all combinations of atom types were not available in that force field. 
-* were assigned generic parameters (`n1`, `b1`, `a1`, or `t1`) with [SMIRNOFF99Frosst]() 
+* were assigned generic parameters (`n1`, `b1`, `a1`, or `t1`) with [SMIRNOFF99Frosst](https://github.com/open-forcefield-group/smirnoff99Frosst) 
 
 Next the minimum molecules that kept the same diversity in parm@frosst atom types and smirnoff99Frosst parameter types were stored.
 
