@@ -28,7 +28,7 @@ script:
   # Build the recipe
   - conda build devtools/conda-recipe
   # Install
-  - conda install --yes --use-local minidrugbank 
+  ## - conda install --yes --use-local minidrugbank 
   # Run tests
   - conda install --yes nose 
   - pip install nose-timer
