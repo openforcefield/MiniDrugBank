@@ -10,8 +10,10 @@ class TestMiniDrugBank(TestCase):
         initiate and store molecules
         """
         TestCase.__init__(self, *args, **kwargs)
-        tri_file = resource_filename('minidrugbank', 'MiniDrugBank_tripos.mol2')
-        ff_file = resource_filename('minidrugbank', 'MiniDrugBank_ff.mol2')
+        #tri_file = resource_filename('minidrugbank', 'MiniDrugBank_tripos.mol2')
+        tri_file = "../MiniDrugBank_tripos.mol2"
+        #ff_file = resource_filename('minidrugbank', 'MiniDrugBank_ff.mol2')
+        ff_file = "../MiniDrugBank_ff.mol2"
         self.tripos_mols = read_molecules(tri_file)
         self.ff_mols = read_molecules(ff_file)
 
@@ -84,7 +86,7 @@ class TestMiniDrugBank(TestCase):
         """
         Check for three dimensional coordinates for every molecule
         """
-        for idx, ff_mol in self.ff_mols:
+        for idx, ff_mol in enumerate(self.ff_mols):
             tri_mol = self.tripos_mols[idx]
             self.assertTrue(ff_mol.GetDimension()==3, msg="Molecule %s in parm@frosst set doesn't have 3D coordinates" % ff_mol.GetTitle())
             self.assertTrue(tri_mol.GetDimension()==3, msg="Molecule %s in tripos set doesn't have 3D coordinates" % tri_mol.GetTitle())
