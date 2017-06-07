@@ -18,6 +18,18 @@ requirements:
 
   run:
     - python
+    - numpy
+    - networkx
+    - openmoltools >=0.7.3
+    - parmed
+    - matplotlib
+    - pandas
+
+test:
+  requires:
+    - nose
+    - nose-timer
+  imports:
 
 about:
   home: https://github.com/open-forcefield-group/minidrugbank
