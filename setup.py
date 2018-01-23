@@ -29,7 +29,7 @@ setup(
     version              = '0.0.0',
     description          = 'MiniDrugBank molecule set',
     long_description     = descr,
-    url                  = 'https://github.com/open-forcefield-group/MiniDrugBank',
+    url                  = 'https://github.com/openforcefield/MiniDrugBank',
     author               = 'Caitlin C. Bannan, David L. Mobley',
     author_email         = 'dmobley@uci.edu',
     license              = 'MIT',
