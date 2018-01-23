@@ -9,9 +9,9 @@ install:
   - source devtools/travis-ci/install.sh
   - export PYTHONUNBUFFERED=true
   # Unpack encrypted OpenEye license file
+  # - if [ "$TRAVIS_SECURE_ENV_VARS" == true ]; then openssl aes-256-cbc -K $encrypted_5f58236b8908_key -iv $encrypted_5f58236b8908_iv -in oe_license.txt.enc -out $OE_LICENSE -d; fi
   - if [ "$TRAVIS_SECURE_ENV_VARS" == true ]; then openssl aes-256-cbc -K $encrypted_5f58236b8908_key -iv $encrypted_5f58236b8908_iv -in oe_license.txt.enc -out $OE_LICENSE -d; fi
   - if [ "$TRAVIS_SECURE_ENV_VARS" == false ]; then echo "OpenEye license will not be installed in forks."; fi
-
 script:
   # Add omnia channel
   - conda config --add channels ${ORGNAME}
@@ -24,7 +24,8 @@ script:
   - pip install --pre -i https://pypi.anaconda.org/openeye/label/beta/simple openeye-toolkits && python -c "import openeye; print(openeye.__version__)"
   # Install openforcefield
   # TODO if changes become less dynamic switch to conda install
-  - pip install git+https://github.com/openforcefield/openforcefield.git
+  # - pip install git+https://github.com/openforcefield/openforcefield.git
+  - conda install openforcefield=0.0.2
   # Build the recipe
   - conda build devtools/conda-recipe
   # Install
