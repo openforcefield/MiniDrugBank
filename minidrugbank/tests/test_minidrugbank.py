@@ -1,4 +1,6 @@
 from unittest import TestCase
+import os
+import pytest
 from pkg_resources import resource_filename
 from openforcefield.utils import read_molecules
 from openforcefield.typing.engines.smirnoff.forcefield import ForceField
@@ -10,10 +12,13 @@ class TestMiniDrugBank(TestCase):
         initiate and store molecules
         """
         TestCase.__init__(self, *args, **kwargs)
-        #tri_file = resource_filename('minidrugbank', 'MiniDrugBank_tripos.mol2')
-        tri_file = "../MiniDrugBank_tripos.mol2"
-        #ff_file = resource_filename('minidrugbank', 'MiniDrugBank_ff.mol2')
-        ff_file = "../MiniDrugBank_ff.mol2"
+        basepath = os.path.dirname(__file__)
+        tri_file = os.path.abspath(os.path.join(basepath, '..', 'MiniDrugBank_tripos.mol2'))
+        if not os.path.exists(tri_file):
+            raise Exception("%s tripos file not found" % tri_file)
+        ff_file = os.path.abspath(os.path.join(basepath, '..', 'MiniDrugBank_ff.mol2'))
+        if not os.path.exists(ff_file):
+            raise Exception("%s parm@frosst file not found" % ff_file)
         self.tripos_mols = read_molecules(tri_file)
         self.ff_mols = read_molecules(ff_file)
 
@@ -67,6 +72,8 @@ class TestMiniDrugBank(TestCase):
                 'PeriodicTorsionGenerator': [136, set()],
                 'NonbondedGenerator': [26, set()]}
 
+        #ffxml = resource_filename('smirnoff99frosst', 'smirnoff99Frosst.ffxml')
+        #ff = ForceField(ffxml)
         ff = ForceField("forcefield/smirnoff99Frosst.ffxml")
         labels = ff.labelMolecules(self.ff_mols, verbose = False)
         # loop through labels from smirnoff
