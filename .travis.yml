@@ -10,11 +10,11 @@ sudo: false
 #python:
 #    - 3.5
 
-before_install:
-  - uname -a
-  - free -m
-  - df -h
-  - ulimit -a
+#before_install:
+    #  - uname -a
+    #  - free -m
+    #  - df -h
+    #  - ulimit -a
 
 install:
   # pull in requirements from install file
