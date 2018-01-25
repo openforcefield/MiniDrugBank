@@ -1,4 +1,4 @@
-language: python
+language: c
 sudo: false
 
 branches:
@@ -23,8 +23,7 @@ script:
   # Use beta version for partial bond orders
   - pip install --pre -i https://pypi.anaconda.org/openeye/label/beta/simple openeye-toolkits && python -c "import openeye; print(openeye.__version__)"
   # Install openforcefield
-  # TODO if changes become less dynamic switch to conda install
-  - pip install git+https://github.com/openforcefield/openforcefield.git
+  conda install openforcefield=0.0.2
   # Build the recipe
   - conda build devtools/conda-recipe
   # Install
