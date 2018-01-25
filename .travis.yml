@@ -22,6 +22,7 @@ install:
   # 
   # Unpack encrypted OpenEye license file
   - echo $TRAVIS_SECURE_ENV_VARS
+  - echo $encrypted_e60be1d1adc8_iv
   - if [ "$TRAVIS_SECURE_ENV_VARS" == true ]; then openssl aes-256-cbc -K $encrypted_e60be1d1adc8_key -iv $encrypted_e60be1d1adc8_iv -in oe_license.txt.enc -out $OE_LICENSE -d; fi
   - if [ "$TRAVIS_SECURE_ENV_VARS" == false ]; then echo "OpenEye licese will not be installed in forks."; fi
   # Build out the environment
