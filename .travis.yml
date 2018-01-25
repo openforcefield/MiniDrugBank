@@ -33,7 +33,7 @@ install:
   - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy pytest 
   - source activate test 
   - conda install -c openeye openeye-toolkits
-  - conda install openforcefield=0.0.2
+  - conda install -c omnia openforcefield=0.0.2
 
   - conda list
 
