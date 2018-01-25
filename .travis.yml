@@ -6,8 +6,9 @@ language: python
 # Run jobs on container-based infrastructure, can be overridden per job
 sudo: false
 
-python:
-    - 3.5
+# move to env section at the end
+#python:
+#    - 3.5
 
 before_install:
   - uname -a
@@ -48,9 +49,16 @@ script:
 notifications:
   email: false
 
-global:
-  - OE_LICENSE="$HOME/oe_license.txt"
+env:
+  maxtrix:
+    - python=3.5  CONDA_PY=35
+
+  global:
+    - OE_LICENSE="$HOME/oe_license.txt"
+    - PACKAGENAME="minidrugbank"
+
 #after_success:
-    #- codecov
+#- codecov
+#
 
 
