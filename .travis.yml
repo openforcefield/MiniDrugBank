@@ -16,22 +16,24 @@ before_install:
   - ulimit -a
 
 install:
-    # Pull down a miniconda
-    #- wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-    #- bash miniconda.sh -b -p $HOME/miniconda
-    #- export PATH="$HOME/miniconda/bin:$PATH"
-
+  # pull in requirements from install file
   - source devtools/travis-ci/install.sh
-    # Build out the environment
+  # 
+  # Unpack encrypted OpenEye license file
+  - if [ "$TRAVIS_SECURE_ENV_VARS" == true ]; then openssl aes-256-cbc -K $encrypted_e60be1d1adc8_key -iv $encrypted_e60be1d1adc8_iv -in oe_license.txt.enc -out $OE_LICENSE -d; fi
+  - if [ "$TRAVIS_SECURE_ENV_VARS" == false ]; then echo "OpenEye licese will not be installed in forks."; fi
+  # Build out the environment
   - hash -r
-    # set to always say yes to conda install
+  # set to always say yes to conda install
   - conda config --set always_yes yes --set changeps1 no
-    # makes installs a little more quiet so you get less output
+  # makes installs a little more quiet so you get less output
   - conda update -q conda
   - conda info -a
-    # creates environment for the given python version
+  # creates environment for the given python version
   - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy pytest 
   - source activate test 
+  - conda install -c openeye openeye-toolkits
+  - conda install openforcefield=0.0.2
 
   - conda list
 
