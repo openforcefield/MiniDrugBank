@@ -32,14 +32,15 @@ install:
   # creates environment for the given python version
   - conda create -q -n test python=$TRAVIS_PYTHON_VERSION numpy pytest 
   - source activate test 
-  - conda install -c openeye openeye-toolkits
   - conda install -c omnia openforcefield=0.0.2
+  - conda install -c openeye openeye-toolkits
 
   - conda list
 
 before_script:
   - python -V
   - python -c 'import numpy; print(numpy.version.version)'
+  - python -c 'from openeye import oechem; print(oechem.OEChemGetVersion())'
   - pip install -e .
 
 script:
@@ -48,6 +49,9 @@ script:
 notifications:
   email: false
 
+global:
+  - OE_LICENSE="$HOME/oe_license.txt"
 #after_success:
     #- codecov
+
 
