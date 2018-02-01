@@ -10,19 +10,14 @@ sudo: false
 #python:
 #    - 3.5
 
-#before_install:
-    #  - uname -a
-    #  - free -m
-    #  - df -h
-    #  - ulimit -a
+before_install:
+  # Unpack encrypted OpenEye license file
+    - if [ "$TRAVIS_SECURE_ENV_VARS" == true ]; openssl aes-256-cbc -K $encrypted_a755ba9fa4fd_key -iv $encrypted_a755ba9fa4fd_iv -in oe_license.txt.enc -out OE_LICENSE -d; fi
+  - if [ "$TRAVIS_SECURE_ENV_VARS" == false ]; then echo "OpenEye licese will not be installed in forks."; fi
 
 install:
   # pull in requirements from install file
   - source devtools/travis-ci/install.sh
-  # 
-  # Unpack encrypted OpenEye license file
-  - if [ "$TRAVIS_SECURE_ENV_VARS" == true ]; then openssl aes-256-cbc -K $encrypted_a755ba9fa4fd_key -iv $encrypted_a755ba9fa4fd_iv -in oe_license.txt.enc -out $OE_LICENSE -d; fi
-  - if [ "$TRAVIS_SECURE_ENV_VARS" == false ]; then echo "OpenEye licese will not be installed in forks."; fi
   # Build out the environment
   - hash -r
   # set to always say yes to conda install
