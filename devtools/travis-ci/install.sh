@@ -18,7 +18,7 @@ export PIP_ARGS="-U"
 export PATH=$MINICONDA_HOME/bin:$PATH
 conda update --yes conda
 conda install --yes conda-build jinja2 anaconda-client pip 
-conda install --yes nose nose-timer
+conda install --yes pytest
 
 # Restore original directory
 popd

@@ -1,21 +1,24 @@
 from unittest import TestCase
+import os
+import pytest
 from pkg_resources import resource_filename
 from openforcefield.utils import read_molecules
 from openforcefield.typing.engines.smirnoff.forcefield import ForceField
 from openeye import oechem
 
+def test_in_tests():
+    print("WE GOT IN A TEST SECTION!!!!")
+
 class TestMiniDrugBank(TestCase):
-    def __init__(self, *args, **kwargs):
-        """
-        initiate and store molecules
-        """
-        TestCase.__init__(self, *args, **kwargs)
-        #tri_file = resource_filename('minidrugbank', 'MiniDrugBank_tripos.mol2')
-        tri_file = "../MiniDrugBank_tripos.mol2"
-        #ff_file = resource_filename('minidrugbank', 'MiniDrugBank_ff.mol2')
-        ff_file = "../MiniDrugBank_ff.mol2"
-        self.tripos_mols = read_molecules(tri_file)
-        self.ff_mols = read_molecules(ff_file)
+    basepath = os.path.dirname(__file__)
+    tri_file = os.path.abspath(os.path.join(basepath, '..', 'MiniDrugBank_tripos.mol2'))
+    if not os.path.exists(tri_file):
+        raise Exception("%s tripos file not found" % tri_file)
+    ff_file = os.path.abspath(os.path.join(basepath, '..', 'MiniDrugBank_ff.mol2'))
+    if not os.path.exists(ff_file):
+        raise Exception("%s parm@frosst file not found" % ff_file)
+    tripos_mols = read_molecules(tri_file)
+    ff_mols = read_molecules(ff_file)
 
     def test_repeating_molecules(self):
         """
@@ -23,10 +26,10 @@ class TestMiniDrugBank(TestCase):
         """
         smiles = set()
         # check for repeating SMILES
-        for idx, ff_mol in enumerate(self.ff_mols):
+        for idx, ff_mol in enumerate(TestMiniDrugBank.ff_mols):
             # get SMILES information
             ff_smile = oechem.OECreateIsoSmiString(ff_mol)
-            tri_mol = self.tripos_mols[idx]
+            tri_mol = TestMiniDrugBank.tripos_mols[idx]
             tri_smile = oechem.OECreateIsoSmiString(tri_mol)
 
             # SMILES should be the same for the two force fields
@@ -46,7 +49,7 @@ class TestMiniDrugBank(TestCase):
                 8: [5, set()], 9: [1, set()], 15: [1, set()], 16: [5, set()],
                 17: [1, set()], 35: [1, set()], 53: [1, set()]}
 
-        for mol in self.ff_mols:
+        for mol in TestMiniDrugBank.ff_mols:
             for atom in mol.GetAtoms():
                 # get atomic number
                 n = atom.GetAtomicNum()
@@ -67,8 +70,10 @@ class TestMiniDrugBank(TestCase):
                 'PeriodicTorsionGenerator': [136, set()],
                 'NonbondedGenerator': [26, set()]}
 
+        #ffxml = resource_filename('smirnoff99frosst', 'smirnoff99Frosst.ffxml')
+        #ff = ForceField(ffxml)
         ff = ForceField("forcefield/smirnoff99Frosst.ffxml")
-        labels = ff.labelMolecules(self.ff_mols, verbose = False)
+        labels = ff.labelMolecules(TestMiniDrugBank.ff_mols, verbose = False)
         # loop through labels from smirnoff
         for force_dict in labels:
             for force, label_list in force_dict.items():
@@ -86,8 +91,8 @@ class TestMiniDrugBank(TestCase):
         """
         Check for three dimensional coordinates for every molecule
         """
-        for idx, ff_mol in enumerate(self.ff_mols):
-            tri_mol = self.tripos_mols[idx]
+        for idx, ff_mol in enumerate(TestMiniDrugBank.ff_mols):
+            tri_mol = TestMiniDrugBank.tripos_mols[idx]
             self.assertTrue(ff_mol.GetDimension()==3, msg="Molecule %s in parm@frosst set doesn't have 3D coordinates" % ff_mol.GetTitle())
             self.assertTrue(tri_mol.GetDimension()==3, msg="Molecule %s in tripos set doesn't have 3D coordinates" % tri_mol.GetTitle())
 
@@ -97,7 +102,7 @@ class TestMiniDrugBank(TestCase):
         Test that explicit hydrogens are already included on all molecules
         In other words the implicit hydrogen count on all atoms is zero
         """
-        for mol in self.tripos_mols:
+        for mol in TestMiniDrugBank.tripos_mols:
             for a in mol.GetAtoms():
                 self.assertTrue(a.GetImplicitHCount() == 0, msg = "Found a %i atom with implicit hydrogens" % a.GetAtomicNum())
 
