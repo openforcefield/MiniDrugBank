@@ -6,9 +6,13 @@ language: python
 # Run jobs on container-based infrastructure, can be overridden per job
 sudo: false
 
-# move to env section at the end
-#python:
-#    - 3.5
+python:
+  - 3.5    
+
+global:
+  - OE_LICENSE="$HOME/oe_license.txt"
+  - PACKAGENAME="minidrugbank"
+
 
 before_install:
   # Unpack encrypted OpenEye license file
@@ -43,16 +47,6 @@ script:
 
 notifications:
   email: false
-
-env:
-  maxtrix:
-    - python=3.4  CONDA_PY=34
-    - python=3.5  CONDA_PY=35
-
-  global:
-    - OE_LICENSE="$HOME/oe_license.txt"
-    - PACKAGENAME="minidrugbank"
-
 
 #after_success:
 #- codecov
