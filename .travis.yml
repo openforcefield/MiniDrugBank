@@ -46,6 +46,7 @@ notifications:
 
 env:
   maxtrix:
+    - python=3.4  CONDA_PY=34
     - python=3.5  CONDA_PY=35
 
   global:
