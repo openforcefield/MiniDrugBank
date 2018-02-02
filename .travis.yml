@@ -37,6 +37,10 @@ install:
   - pip install codecov
   - pip install pytest-cov
   - conda list
+    # install openeye
+  - pip install -i https://pypi.anaconda.org/openeye/simple openeye-toolkits
+  - conda install -c omnia openforcefield=0.0.2
+  
 
 before_script:
   - python -V
