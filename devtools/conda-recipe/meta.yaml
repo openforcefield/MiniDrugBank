@@ -27,8 +27,7 @@ requirements:
 
 test:
   requires:
-    - nose
-    - nose-timer
+    - pytest
   imports:
 
 about:
