@@ -6,8 +6,6 @@ from openforcefield.utils import read_molecules
 from openforcefield.typing.engines.smirnoff.forcefield import ForceField
 from openeye import oechem
 
-def test_in_tests():
-    print("WE GOT IN A TEST SECTION!!!!")
 
 class TestMiniDrugBank(TestCase):
     basepath = os.path.dirname(__file__)
