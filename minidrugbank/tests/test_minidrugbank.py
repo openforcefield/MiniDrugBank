@@ -70,9 +70,7 @@ class TestMiniDrugBank(TestCase):
                 'PeriodicTorsionGenerator': [136, set()],
                 'NonbondedGenerator': [26, set()]}
 
-        ffxml = resource_filename('smirnoff99frosst', 'smirnoff99Frosst.ffxml')
-        ff = ForceField(ffxml)
-        #ff = ForceField("forcefield/smirnoff99Frosst.ffxml")
+        ff = ForceField("forcefield/smirnoff99Frosst.ffxml")
         labels = ff.labelMolecules(TestMiniDrugBank.ff_mols, verbose = False)
         # loop through labels from smirnoff
         for force_dict in labels:

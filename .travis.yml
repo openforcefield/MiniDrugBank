@@ -39,8 +39,8 @@ install:
   - conda list
     # install openeye
   - pip install -i https://pypi.anaconda.org/openeye/simple openeye-toolkits
-  - conda install -c omnia openforcefield
-  - conda install -c mobleylab smirnoff99frosst=1.0.4
+  - conda install -c omnia openforcefield=1.0.2
+  - conda install networkx=1.11
   
 
 before_script:
