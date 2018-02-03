@@ -6,6 +6,10 @@ language: python
 # Run jobs on container-based infrastructure, can be overridden per job
 sudo: false
 
+branches:
+  only:
+    - master
+
 python: # what python are you supporting?
     - 3.6
 
