@@ -16,9 +16,10 @@ bash $MINICONDA -b -p $MINICONDA_HOME
 # Configure miniconda
 export PIP_ARGS="-U"
 export PATH=$MINICONDA_HOME/bin:$PATH
-conda update --yes conda
+conda config --set always_yes yes --set changeps1 no
+conda update -q conda
+conda info -a
 conda install --yes conda-build jinja2 anaconda-client pip 
-conda install --yes nose nose-timer
 
 # Restore original directory
 popd
